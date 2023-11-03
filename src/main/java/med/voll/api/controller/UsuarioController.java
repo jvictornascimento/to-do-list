@@ -4,12 +4,11 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.domain.usuario.UsuarioRepository;
-import med.voll.api.usuario.DadosCadstroUsuario;
-import med.voll.api.usuario.DadosDetalhamentoUsuario;
+import med.voll.api.domain.usuario.DadosCadstroUsuario;
+import med.voll.api.domain.usuario.DadosDetalhamentoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
