@@ -1,6 +1,8 @@
 package med.voll.api.infra.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
+import med.voll.api.domain.ValidacaoException;
+import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import org.springframework.http.ResponseEntity;
 
 
@@ -23,6 +25,10 @@ public class TratadorDeErros {
         var erros  = ex.getFieldErrors();
 
         return ResponseEntity.badRequest().body(erros.stream().map(DadosErrorValidacao::new).toList());
+    }
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroRegrasDeNegocio(ValidacaoException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     private record DadosErrorValidacao(String campo,String mensagem){
