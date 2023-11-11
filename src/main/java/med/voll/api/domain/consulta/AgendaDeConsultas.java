@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class AgendaDeConsultas {
 
     @Autowired
-    private ConsultaRepository repository;
+    private ConsultaRepository consultaRepository;
     @Autowired
     private MedicoRepository medicoRepository;
     @Autowired
@@ -28,9 +28,10 @@ public class AgendaDeConsultas {
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedicos(dados);
+
         var consulta = new Consulta(null,medico, paciente, dados.data());
 
-        repository.save(consulta);
+        consultaRepository.save(consulta);
 
     }
 
@@ -38,10 +39,10 @@ public class AgendaDeConsultas {
         if(dados.idMedico() != null){
             return medicoRepository.getReferenceById(dados.idMedico());
         }
-        if (dados.epecialidaded() != null ){
+        if (dados.especialidade() == null ){
             throw new ValidacaoException("Especialidade é obrigatoria quando o medico não for escolhido");
         }
-        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.epecialidaded(),dados.data());
+        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(),dados.data());
 
     }
 }
